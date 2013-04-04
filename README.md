@@ -3,6 +3,8 @@ madlibbery
 
 Hello world!
 
+hai you guise
+
 [softdes spring 2013] madlib generator 
 
 @greenteawarrior(emily wang), 
