@@ -1,0 +1,13 @@
+Madlib Generator Project Proposal
+Software Design [ENGR2510] Spring 2013
+Emily Wang, Nicole Rifkin, Maura Cosman
+Ninja mentor: Joe Gibson
+
+The most basic version of the program will allow the user to compose a story by either typing or copying and pasting text. The program will then allow the user to select words that they would like to replace in their madlib. The program will remove that word from the block of text and replace it with a blank space. It will then reference that word using the natural language tool kit, and add the part of speech of that word to a list. If the part of speech is a pronoun or preposition, or if it is something that is not recognized by the NLTK* (i.e. a proper noun), the user will asked to choose a different word to replace. Once the player is done removing words, the program will print the list and prompt the user to insert interesting or funny words of that part of speech. One feature will be a manual override option to correct the part of speech in this list if needed (in case a typical noun is actually used as a verb and vice versa). The program will also check using the nltk that the word fits appropriately. Relevant Python skills include functional and/or object oriented programming, a GUI, and data structure analysis methods.
+
+Once we have this working cleanly, there are several features we are hoping to add. We would like to have an option where the player can import a url, and the program will select random text from that url. For example, they could make a madlib out of the NY times front page or a set of friends' facebook statuses. The program would automatically remove every nth word and replace it with a blank, as above. Another additional feature will be a "need inspiration?" button that will generate a random word of a certain part of speech. We would also like the program to check for words that are repeated throughout the text and replace those with a single word. Time permitting, we will write an algorithm that will help us determine based on context clues. For example, if the word "run" was being replaced, the program would search for the word "a" or "the" or find other verbs immediately surrounding it. It would then use this to best guess whether it was intended as a noun or a verb.  
+
+After the command-line version is working, the next step would be to create a web-based version of the madlib generator. This will probably involve a bit of javascript. The user would use the program in the same way as the command-line version, but also include web-based features (such as customizing the appearance of webpages or creating a link to the generated madlib which could be accessed in the future).
+
+*Natural Language Tool Kit 
+	http://nltk.org/
