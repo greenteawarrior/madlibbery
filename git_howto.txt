@@ -43,7 +43,7 @@ $ git status #see, now it says "Stages to be committed"
 		then control x, y, enter (see bottom of screen)
 
 	OR easier:
-	$ git -m "comment string"
+	$ git commit -m "comment string"
 
 	$ git push origin master 
 	#enter information (github username and password) as directed
