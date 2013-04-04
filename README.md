@@ -5,7 +5,7 @@ Hello world!
 
 [softdes spring 2013] madlib generator 
 @greenteawarrior(emily wang), 
-@insert github handle here (nicole rifkin), 
+@rifkinni (nicole rifkin), 
 @insert github handle here maura cosman
 
 
