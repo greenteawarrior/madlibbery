@@ -18,6 +18,7 @@ witty name ideas:
 potential feature list
 
 1. NLTK
+
 2. web inputed text *
 	model control view
 		-when scraping text from a page, you also get the formatting code

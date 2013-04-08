@@ -17,8 +17,7 @@ $ git clone http://...the URL of madlibbery in the git button
 	$ ls  
 	$ cd madlibbery ##see, now you're in the git folder :D
 
-	$ sublime-text .madlibbery 
-		#for me, this opens the madlibbery folder in sublime. not sure what happens for gedit
+	$ sublime-text . # the period is shorthand for the current directory 
 
 	now, change something in the file (i.e. add your github handle to the member list)
 
