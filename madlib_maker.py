@@ -1,6 +1,7 @@
 import random
 import nltk
-
+import urllib2
+import BeautifulSoup
 #emilywang, nicolerifkin, mauracosman
 #softdes!
 #madlib generator
@@ -12,11 +13,11 @@ def blankage(inputstory_list):
 	#user can decide either random or "every nth number" blankage
 	howtoblank= False #initial value-ing
 	while howtoblank == False:
-		try_rand = raw_input("Do you want to have the madlib blanks spaced randomly throughout the text sample? Press 'y'/'n' and hit enter.")
+		try_rand = raw_input("Do you want us to choose blanks for you? Press 'y'/'n' and hit enter.")
 		if str(try_rand) == 'y':
 			howtoblank = 'random'
 		elif try_rand == 'n':
-			try_int = raw_input ("Would you rather have the madlib blanks placed every nth word? If so, how often? (specify a positive integer value) If not, press enter.")
+			try_int = raw_input ("Would you rather tell us how many blanks you want? If so, how many? (specify a positive integer value) If not, press enter.")
 			try:
 				integer = int(try_int)
 				howtoblank = integer	
@@ -26,7 +27,7 @@ def blankage(inputstory_list):
 	blank = '_____' #this is a string of five underscores
 	blankedoutwords_dict = {}
 	tagged = nltk.pos_tag(inputstory_list)
-	blankable_poslist = ['NN', 'VBD', 'VBP', 'JJ', 'RB']
+	blankable_poslist = ['NN', 'VB', 'VBD', 'VBP', 'JJ', 'RB']
 	if howtoblank == 'random': #we'll blank randomly
 		totalblanks = len(inputstory_list) / 5.0 #total amount of blanks desired
 		howmanyblanks = 0 #counter for current amount of blanks in madlib in progress
@@ -42,17 +43,17 @@ def blankage(inputstory_list):
 			
 	
 	elif howtoblank != 'random' and type(howtoblank)==int: #if it's not random, we want to replace every nth word with a blank; n=howtoblank 
-		wordtoblank_index = howtoblank #initialize
-		howmanyblanks = 0
-		while wordtoblank_index%howtoblank != len(inputstory_list)%howtoblank:
-			wordtoblank = inputstory_list[wordtoblank_index]
-			wordtoblank_pos = tagged[wordtoblank_index][1]
+		#wordtoblank_index = howtoblank #initialize
+		totalblanks = howtoblank
+		howmanyblanks = 0 #counter
+		while howmanyblanks <= totalblanks:
+			wordtoblank = random.choice(inputstory_list)
+			wordtoblank_index = inputstory_list.index(wordtoblank)
+			wordtoblank_pos = tagged[wordtoblank_index][1]#nltk stuff
 			if wordtoblank_pos in blankable_poslist:
 				howmanyblanks = howmanyblanks + 1
-				print (howmanyblanks)
 				blankedoutwords_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
 				inputstory_list[wordtoblank_index] = blank
-				#increment wordtoblank_index
 		return inputstory_list, blankedoutwords_dict
 
 	else:
@@ -71,7 +72,23 @@ def madlibbing():
 	#inputstory = str(input("Write stuff here: "))
 
 	#our test inputstory, by maura
-	inputstory = 'There was once a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
+	#write your own madlib
+	#take text from a url
+	#Use a pre-written story
+	print("Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
+	inputstory = False
+	while inputstory == False:
+		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib")
+		if inputstorytype == 'yours':
+			inputstory = 'There was once a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
+		elif inputstorytype == 'mine':
+			inputstory = raw_input("Type or paste your story here")
+		elif inputstorytype == 'url':
+			url = raw_input("Paste a valid url here")
+			try:
+				data = urllib2.urlopen(url).read() 
+			except HTTPError:
+				print("That is not a valid url.")
 
 	#turn the inputstory into a list, where each element is a word. this isn't very friendly to spacebar typos.
 	#we chose a list rather than a dictionary because even though dictionaries are faster, we need the elements to be sequential.
