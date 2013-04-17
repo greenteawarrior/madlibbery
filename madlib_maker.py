@@ -1,7 +1,8 @@
 import random
 import nltk
 import urllib2
-#import BeautifulSoup
+from bs4 import BeautifulSoup
+
 #emilywang, nicolerifkin, mauracosman
 #softdes!
 #madlib generator
@@ -32,7 +33,7 @@ def blankage(inputstory_list):
 			wordtoblank = random.choice(inputstory_list)
 			wordtoblank_index = inputstory_list.index(wordtoblank)
 			wordtoblank_pos = tagged[wordtoblank_index][1]#nltk stuff
-			if wordtoblank_pos in blankable_poslist:
+			if wordtoblank_pos in blankable_poslist and wordtoblank != blank:
 				howmanyblanks = howmanyblanks + 1
 				blankedoutwords_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
 				inputstory_list[wordtoblank_index] = blank
@@ -77,14 +78,21 @@ def madlibbing():
 		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib")
 		if inputstorytype == 'yours':
 			inputstory = 'There was once a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
+			print(inputstory)
 		elif inputstorytype == 'mine':
-			inputstory = raw_input("Type or paste your story here")
+			inputstory = raw_input("Type or paste your story here") #check to make sure that entry is valid
+			print(inputstory)
 		elif inputstorytype == 'url':
 			url = raw_input("Paste a valid url here")
 			try:
-				data = urllib2.urlopen(url).read() 
-			except HTTPError:
+				data = urllib2.urlopen(url).read()
+				newdata= BeautifulSoup(data).get_text()
+				a = newdata.strip('\n')
+				inputstory = a.strip('')
+				print(inputstory) 
+			except:
 				print("That is not a valid url.")
+				inputstory = False
 
 	#turn the inputstory into a list, where each element is a word. this isn't very friendly to spacebar typos.
 	#we chose a list rather than a dictionary because even though dictionaries are faster, we need the elements to be sequential.
