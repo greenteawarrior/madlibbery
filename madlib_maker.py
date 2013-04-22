@@ -25,16 +25,17 @@ def blankage(inputstory_list):
 	blank = '_____' #this is a string of five underscores
 	blank_dict = {}
 	tagged = nltk.pos_tag(inputstory_list)
+	#print (tagged)
 
 	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB']
 	howmanyblanks = 0 #counter for current amount of blanks in madlib in progress
+
 	blankables = 0
-
 	for i in tagged:
-		if i in blankable_poslist:
+		if i[1] in blankable_poslist:
 			blankables = blankables + 1
+	#print(blankables)
 
-	
 	while howmanyblanks < totalblanks and howmanyblanks < blankables:
 		wordtoblank = random.choice(inputstory_list)
 		wordtoblank_index = inputstory_list.index(wordtoblank)
@@ -43,25 +44,30 @@ def blankage(inputstory_list):
 			howmanyblanks = howmanyblanks + 1
 			blank_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
 			inputstory_list[wordtoblank_index] = blank
+	
+	#print (blank_dict)
+
 	return inputstory_list, blank_dict
 
 def playage(madlib):
+	print (madlib)
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
 	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
 	noun_insp = ['Acoustic', 'Curve', 'Custard', 'Hen', 'Jaw', 'Bladder', 'Detail', 'Output', 'Polo', 'Sideboard', 'Single', 'Tiger', 'Fahrenheit', 'Lettuce', 'Owner', 'Parsnip', 'Path', 'Resolution', 'Sardine', 'Scarecrow', 'Badger', 'Butter', 'Coast', 'Difference', 'Jam', 'Loaf', 'Methane', 'Sense', 'Stew', 'Apology', 'Carpenter', 'Eyeliner', 'Form', 'Sister', 'Handsaw', 'Save', 'Softdrink', 'Study', 'Tent', 'Bath', 'Cast', 'Creature', 'Freighter', 'Nail', 'Pie', 'Repair', 'Request', 'Throat', 'Wolf', 'Ornament', 'Pan', 'Supply', 'Uncle', 'Wallet']
 	verb_insp = ['Elicit', 'Save', 'Solve', 'Draw', 'Forecast', 'Execute', 'Travel', 'Research', 'Assume', 'Compile', 'Upheld', 'Differentiate', 'Sustain', 'Code', 'Fix', 'Replace', 'Import', 'Coordinate', 'Undertook', 'Supply', 'Devote', 'Secure', 'Customize', 'Disseminate', 'Resolve', 'Institute', 'Assist', 'Intervene', 'Investigate', 'Address', 'Care', 'Correlate', 'Model', 'Enumerate', 'Discriminate', 'Outline', 'Diagnose', 'Cooperate', 'Search', 'Accomplish', 'Teach', 'Interpret', 'Verify', 'Explore', ' Pioneer', 'Prevent', 'Visualize', 'Check', 'Establish', 'Distribute', 'Unify', 'Foster', 'Bargain', 'Renew', 'Expand', 'Upgrade', 'Experiment', 'Monitor', 'Moderate']
-	adj_insp = [Dusty, Superb, Weak, Female, Internal, Nostalgic, Uptight, Habitual, Woozy, Quiet, Thirsty, Fearful, Gleaming, Happy, Vagabond, Ill, Many, Deeply, Luxuriant, Present, Tall, Swanky, Clear, Tired, Fluffy, Blue-eyed, Average, Obscene, Parched, Uninterested, Important, Wooden, Late, Scattered, Materialistic, Alluring, Square, Sweltering, Capable, Gruesome, Maniacal, Periodic, Dashing, Whimsical, Overwrought, Future, Aquatic, Protective, Polite, Undesirable, Orange, Useful, Rich]
-	adv_insp = [Richly, Honorably, Ably, Magically, Abundantly, Nondescriptly, Hotly, Deafeningly, Viciously, Ferociously, Furiously, Hilariously, Basically, Parsimoniously, Royally, Readily, Strangely, Jokingly, Facetiously, Encouragingly, Enviously, Earsplittingly, Peacefully, Inquisitively, Tastefully, Incredibly, Beneficially, Defiantly, Tensely, Greatly, Firstly, Strongly, Gregariously, Prettily, Interestingly, Simply, Distinctly, Swiftly]
-
-	final_madlib = []
+	adj_insp = ['Dusty', 'Superb', 'Weak', 'Female', 'Internal', 'Nostalgic', 'Uptight', 'Habitual', 'Woozy', 'Quiet', 'Thirsty', 'Fearful', 'Gleaming', 'Happy', 'Vagabond', 'Ill', 'Many', 'Deeply', 'Luxuriant', 'Present', 'Tall', 'Swanky', 'Clear', 'Tired', 'Fluffy', 'Blue-eyed', 'Average', 'Obscene', 'Parched', 'Uninterested', 'Important', 'Wooden', 'Late', 'Scattered', 'Materialistic', 'Alluring', 'Square', 'Sweltering', 'Capable', 'Gruesome', 'Maniacal', 'Periodic', 'Dashing', 'Whimsical', 'Overwrought', 'Future', 'Aquatic', 'Protective', 'Polite', 'Undesirable', 'Orange', 'Useful', 'Rich']
+	adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly']
 	print("Reach deep down into your soul and tell me a...")
+
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
 		now = time.time()
+		print (now)
 		future = now + 15
+		print (future)
 		while not filled:
 			fillintheblank=raw_input(key_pos + ': ')
 			if time.time > future:
@@ -78,12 +84,16 @@ def playage(madlib):
 			else:
 				madlib_list[blank_dict[key][0]]=fillintheblank
 				filled = True
+	
+	final_madlib = ''
 	for word in madlib_list:
 		final_madlib = final_madlib + word + ' '
-	print(final_madlib)
-	print(blank_dict)
+	#print(final_madlib)
+	#print(blank_dict)
 
 def madlibbing():
+	now = time.time()
+	print (now)	
 	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
 	print (make_welcome)
 
@@ -134,6 +144,5 @@ def madlibbing():
 	playing = False
 	while playing == False:
 		playing = playage(madlib)
-
 
 madlibbing()
