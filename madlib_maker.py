@@ -11,6 +11,7 @@ import time
 #If they don't want to play, let them say no. (i.e. letsmake and letsbegin)
 #Manual Override Pos
 #make sure they can't ask for more madlibs than possible
+
 def blankage(inputstory_list):
 	#make while loops later to make this program typo-proof o.o
 	howtoblank= False #initial value-ing
@@ -50,7 +51,6 @@ def blankage(inputstory_list):
 	return inputstory_list, blank_dict
 
 def playage(madlib):
-	print (madlib)
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
@@ -74,26 +74,22 @@ def playage(madlib):
 				print("Would you like some inspiration? Press 'i' and then enter for a word that we like.")
 			if fillintheblank == 'i':
 				if key_pos == 'Noun':
-					print(noun_insp[random.choice()])
+					print(random.choice(noun_insp))
 				elif key_pos == 'Verb':
-					print(verb_insp[random.choice()])
+					print(random.choice(verb_insp))
 				elif key_pos == 'Adjective':
-					print(adj_insp[random.choice()])
+					print(random.choice(adj_insp))
 				elif key_pos == 'Adverb':
-					print(adv_insp[random.choice()])
+					print(random.choice(adv_insp))
 			else:
 				madlib_list[blank_dict[key][0]]=fillintheblank
 				filled = True
-	
-	final_madlib = ''
-	for word in madlib_list:
-		final_madlib = final_madlib + word + ' '
-	#print(final_madlib)
-	#print(blank_dict)
+
+	return madlib_list
 
 def madlibbing():
-	now = time.time()
-	print (now)	
+	#now = time.time()
+	#print (now)	
 	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
 	print (make_welcome)
 
@@ -137,12 +133,23 @@ def madlibbing():
 	print("Your madlib is now complete (freshly out of the oven and smells ______, if I might add). Would you like to play?")
 
 	letsplay = 0
-
 	while letsplay != 'y':
 		letsplay = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
 
 	playing = False
 	while playing == False:
 		playing = playage(madlib)
+
+	print ("Hurray, madlib complete!")
+
+	finishedmadlib = ''
+	for word in playing:
+		finishedmadlib += word + ' '
+
+	showme = 0
+	while showme != 'y':
+		showme = raw_input("Press y to read the _____ly finished product.")
+
+	print (finishedmadlib)
 
 madlibbing()
