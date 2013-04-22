@@ -28,9 +28,14 @@ def blankage(inputstory_list):
 
 	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB']
 	howmanyblanks = 0 #counter for current amount of blanks in madlib in progress
+	blankables = 0
+
+	for i in tagged:
+		if i in blankable_poslist:
+			blankables = blankables + 1
+
 	
-	
-	while howmanyblanks < totalblanks:
+	while howmanyblanks < totalblanks and howmanyblanks < blankables:
 		wordtoblank = random.choice(inputstory_list)
 		wordtoblank_index = inputstory_list.index(wordtoblank)
 		wordtoblank_pos = tagged[wordtoblank_index][1]#nltk stuff
