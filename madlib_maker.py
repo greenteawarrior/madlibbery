@@ -2,7 +2,9 @@ import random
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
-import time
+#import timeit
+from threading import Timer
+#import time
 
 #emilywang, nicolerifkin, mauracosman
 #softdes!
@@ -47,6 +49,15 @@ def blankage(inputstory_list):
 			inputstory_list[wordtoblank_index] = blank
 	return inputstory_list, blank_dict
 
+
+def timing():
+	#p = timeit.default_timer()
+	#q = timeit.default_timer()
+	#while q - p < 15:
+	#	q = timeit.default_timer()
+	#	time.sleep()
+	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
+
 def playage(madlib):
 	#unpacking the madlib
 	madlib_list = madlib[0]
@@ -61,14 +72,19 @@ def playage(madlib):
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
-		now = time.time()
+		#now = time.time()
 		#print (now)
-		future = now + 15
+		#future = now + 15
 		#print (future)
+		#timeelapsed = datetime.timedelta(seconds = 15)
 		while not filled:
+			#datetime.time()
+			timeelapsed = Timer(15.0, timing)
+			timeelapsed.start()
 			fillintheblank=raw_input(key_pos + ': ')
-			if time.time > future:
-				print("Would you like some inspiration? Press 'i' and then enter for a word that we like.")
+			#threadID = thread.start_new_thread(timing)
+			#if  datetime.timedelta() > 00:00:15:
+			#	print("Would you like some inspiration? Press 'i' and then enter for a word that we like.")
 			if fillintheblank == 'i':
 				if key_pos == 'Noun':
 					print(random.choice(noun_insp))
@@ -78,35 +94,40 @@ def playage(madlib):
 					print(random.choice(adj_insp))
 				elif key_pos == 'Adverb':
 					print(random.choice(adv_insp))
+				timeelapsed.cancel()
 			else:
+				#thread.exit(threadID)
 				madlib_list[blank_dict[key][0]]=fillintheblank
 				filled = True
-
+				timeelapsed.cancel()
+	timeelapsed.cancel()
 	return madlib_list
 
 def madlibbing():
 	#now = time.time()
-	#print (now)	
+	#print (now)
+	print	
 	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
 	print (make_welcome)
-
 	letsmake = 0
 
 	while letsmake != 'y':
 		letsmake = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
 
+	print
 	print("Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
+	print
 	inputstory = False
 	while inputstory == False:
-		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib")
+		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib ")
 		if inputstorytype == 'yours':
 			inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
-			print(inputstory)
+			#print(inputstory)
 		elif inputstorytype == 'mine':
-			inputstory = raw_input("Type or paste your story here") #check to make sure that entry is valid
+			inputstory = raw_input("Type or paste your story here ") #check to make sure that entry is valid
 			print(inputstory)
 		elif inputstorytype == 'url':
-			url = raw_input("Paste a valid url here")
+			url = raw_input("Paste a valid url here ")
 			try:
 				req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
 				con = urllib2.urlopen( req )
@@ -127,8 +148,8 @@ def madlibbing():
 	while madlib == False:
 		madlib = blankage(inputstory_list)
 
-	print("Your madlib is now complete (freshly out of the oven and smells ______, if I might add). Would you like to play?")
-
+	print("Your madlib is now ready (freshly out of the oven and smells ______, if I might add). Would you like to play? ")
+	print
 	letsplay = 0
 	while letsplay != 'y':
 		letsplay = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
@@ -137,6 +158,7 @@ def madlibbing():
 	while playing == False:
 		playing = playage(madlib)
 
+	print
 	print ("Hurray, madlib complete!")
 
 	finishedmadlib = ''
@@ -147,6 +169,7 @@ def madlibbing():
 	while showme != 'y':
 		showme = raw_input("Press y to read the _____ly finished product.")
 
+	print
 	print (finishedmadlib)
 
 madlibbing()
