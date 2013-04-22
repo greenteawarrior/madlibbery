@@ -45,9 +45,6 @@ def blankage(inputstory_list):
 			howmanyblanks = howmanyblanks + 1
 			blank_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
 			inputstory_list[wordtoblank_index] = blank
-	
-	#print (blank_dict)
-
 	return inputstory_list, blank_dict
 
 def playage(madlib):
@@ -65,9 +62,9 @@ def playage(madlib):
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
 		now = time.time()
-		print (now)
+		#print (now)
 		future = now + 15
-		print (future)
+		#print (future)
 		while not filled:
 			fillintheblank=raw_input(key_pos + ': ')
 			if time.time > future:
