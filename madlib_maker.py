@@ -2,12 +2,14 @@ import random
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
+import time
 
 #emilywang, nicolerifkin, mauracosman
 #softdes!
 #madlib generator
 
 #If they don't want to play, let them say no. (i.e. letsmake and letsbegin)
+#Manual Override Pos
 #make sure they can't ask for more madlibs than possible
 def blankage(inputstory_list):
 	#make while loops later to make this program typo-proof o.o
@@ -27,6 +29,7 @@ def blankage(inputstory_list):
 	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB']
 	howmanyblanks = 0 #counter for current amount of blanks in madlib in progress
 	
+	
 	while howmanyblanks < totalblanks:
 		wordtoblank = random.choice(inputstory_list)
 		wordtoblank_index = inputstory_list.index(wordtoblank)
@@ -41,13 +44,38 @@ def playage(madlib):
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
-	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Present Tense Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
+	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
+	noun_insp = [Acoustic, Curve, Custard, Hen, Jaw, Bladder, Detail, Output, Polo, Sideboard, Single, Tiger, Fahrenheit, Lettuce, Owner, Parsnip, Path, Resolution, Sardine, Scarecrow, Badger, Butter, Coast, Difference, Jam, Loaf, Methane, Sense, Stew, Apology, Carpenter, Eyeliner, Form, Sister, Handsaw, Save, Softdrink, Study, Tent, Bath, Cast, Creature, Freighter, Nail, Pie, Repair, Request, Throat, Wolf, Ornament, Pan, Supply, Uncle, Wallet]
+	verb_insp = [Elicit, Save, Solve, Draw, Forecast, Execute, Travel, Research, Assume, Compile, Upheld, Differentiate, Sustain, Code, Fix, Replace, Import, Coordinate, Undertook, Supply, Devote, Secure, Customize, Disseminate, Resolve, Institute, Assist, Intervene, Investigate, Address, Care, Correlate, Model, Enumerate, Discriminate, Outline, Diagnose, Cooperate, Search, Accomplish, Teach, Interpret, Verify, Explore,  Pioneer, Prevent, Visualize, Check, Establish, Distribute, Unify, Foster, Bargain, Renew, Expand, Upgrade, Experiment, Monitor, Moderate]
+	adj_insp = [Dusty, Superb, Weak, Female, Internal, Nostalgic, Uptight, Habitual, Woozy, Quiet, Thirsty, Fearful, Gleaming, Happy, Vagabond, Ill, Many, Deeply, Luxuriant, Present, Tall, Swanky, Clear, Tired, Fluffy, Blue-eyed, Average, Obscene, Parched, Uninterested, Important, Wooden, Late, Scattered, Materialistic, Alluring, Square, Sweltering, Capable, Gruesome, Maniacal, Periodic, Dashing, Whimsical, Overwrought, Future, Aquatic, Protective, Polite, Undesirable, Orange, Useful, Rich]
+	adv_insp = [Richly, Honorably, Ably, Magically, Abundantly, Nondescriptly, Hotly, Deafeningly, Viciously, Ferociously, Furiously, Hilariously, Basically, Parsimoniously, Royally, Readily, Strangely, Jokingly, Facetiously, Encouragingly, Enviously, Earsplittingly, Peacefully, Inquisitively, Tastefully, Incredibly, Beneficially, Defiantly, Tensely, Greatly, Firstly, Strongly, Gregariously, Prettily, Interestingly, Simply, Distinctly, Swiftly ]
+
+	final_madlib = []
 	print("Reach deep down into your soul and tell me a...")
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
-		fillintheblank=raw_input(key_pos + ': ')
-		madlib_list[blank_dict[key][0]]=fillintheblank
-	print(madlib_list)
+		filled = False
+		now = time.time()
+		future = now + 15
+		while not filled:
+			fillintheblank=raw_input(key_pos + ': ')
+			if time.time > future:
+				print("Would you like some inspiration? Press 'i' and then enter for a word that we like.")
+			if fillintheblank == 'i':
+				if key_pos == 'Noun':
+					print(noun_insp[random.choice()])
+				elif key_pos == 'Verb':
+					print(verb_insp[random.choice()])
+				elif key_pos == 'Adjective':
+					print(adj_insp[random.choice()])
+				elif key_pos == 'Adverb'
+					print(adv_insp[random.choice()])
+			else:
+				madlib_list[blank_dict[key][0]]=fillintheblank
+				filled = True
+	for word in madlib_list:
+		final_madlib = final_madlib + word + ' '
+	print(final_madlib)
 	print(blank_dict)
 
 def madlibbing():
@@ -72,8 +100,10 @@ def madlibbing():
 		elif inputstorytype == 'url':
 			url = raw_input("Paste a valid url here")
 			try:
-				data = urllib2.urlopen(url).read()
-				newdata= BeautifulSoup(data).get_text()
+				req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+				con = urllib2.urlopen( req )
+				#data = urllib2.urlopen(url).read()
+				newdata= BeautifulSoup(con).get_text()
 				a = newdata.strip('\n')
 				inputstory = a.strip('')
 				print(inputstory) 
