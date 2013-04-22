@@ -51,11 +51,6 @@ def blankage(inputstory_list):
 
 
 def timing():
-	#p = timeit.default_timer()
-	#q = timeit.default_timer()
-	#while q - p < 15:
-	#	q = timeit.default_timer()
-	#	time.sleep()
 	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
 
 def playage(madlib):
@@ -72,19 +67,10 @@ def playage(madlib):
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
-		#now = time.time()
-		#print (now)
-		#future = now + 15
-		#print (future)
-		#timeelapsed = datetime.timedelta(seconds = 15)
 		while not filled:
-			#datetime.time()
 			timeelapsed = Timer(15.0, timing)
 			timeelapsed.start()
 			fillintheblank=raw_input(key_pos + ': ')
-			#threadID = thread.start_new_thread(timing)
-			#if  datetime.timedelta() > 00:00:15:
-			#	print("Would you like some inspiration? Press 'i' and then enter for a word that we like.")
 			if fillintheblank == 'i':
 				if key_pos == 'Noun':
 					print(random.choice(noun_insp))
@@ -96,7 +82,6 @@ def playage(madlib):
 					print(random.choice(adv_insp))
 				timeelapsed.cancel()
 			else:
-				#thread.exit(threadID)
 				madlib_list[blank_dict[key][0]]=fillintheblank
 				filled = True
 				timeelapsed.cancel()
@@ -104,8 +89,6 @@ def playage(madlib):
 	return madlib_list
 
 def madlibbing():
-	#now = time.time()
-	#print (now)
 	print	
 	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
 	print (make_welcome)
