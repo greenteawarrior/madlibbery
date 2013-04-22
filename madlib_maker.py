@@ -45,10 +45,10 @@ def playage(madlib):
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
 	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
-	noun_insp = [Acoustic, Curve, Custard, Hen, Jaw, Bladder, Detail, Output, Polo, Sideboard, Single, Tiger, Fahrenheit, Lettuce, Owner, Parsnip, Path, Resolution, Sardine, Scarecrow, Badger, Butter, Coast, Difference, Jam, Loaf, Methane, Sense, Stew, Apology, Carpenter, Eyeliner, Form, Sister, Handsaw, Save, Softdrink, Study, Tent, Bath, Cast, Creature, Freighter, Nail, Pie, Repair, Request, Throat, Wolf, Ornament, Pan, Supply, Uncle, Wallet]
-	verb_insp = [Elicit, Save, Solve, Draw, Forecast, Execute, Travel, Research, Assume, Compile, Upheld, Differentiate, Sustain, Code, Fix, Replace, Import, Coordinate, Undertook, Supply, Devote, Secure, Customize, Disseminate, Resolve, Institute, Assist, Intervene, Investigate, Address, Care, Correlate, Model, Enumerate, Discriminate, Outline, Diagnose, Cooperate, Search, Accomplish, Teach, Interpret, Verify, Explore,  Pioneer, Prevent, Visualize, Check, Establish, Distribute, Unify, Foster, Bargain, Renew, Expand, Upgrade, Experiment, Monitor, Moderate]
+	noun_insp = ['Acoustic', 'Curve', 'Custard', 'Hen', 'Jaw', 'Bladder', 'Detail', 'Output', 'Polo', 'Sideboard', 'Single', 'Tiger', 'Fahrenheit', 'Lettuce', 'Owner', 'Parsnip', 'Path', 'Resolution', 'Sardine', 'Scarecrow', 'Badger', 'Butter', 'Coast', 'Difference', 'Jam', 'Loaf', 'Methane', 'Sense', 'Stew', 'Apology', 'Carpenter', 'Eyeliner', 'Form', 'Sister', 'Handsaw', 'Save', 'Softdrink', 'Study', 'Tent', 'Bath', 'Cast', 'Creature', 'Freighter', 'Nail', 'Pie', 'Repair', 'Request', 'Throat', 'Wolf', 'Ornament', 'Pan', 'Supply', 'Uncle', 'Wallet']
+	verb_insp = ['Elicit', 'Save', 'Solve', 'Draw', 'Forecast', 'Execute', 'Travel', 'Research', 'Assume', 'Compile', 'Upheld', 'Differentiate', 'Sustain', 'Code', 'Fix', 'Replace', 'Import', 'Coordinate', 'Undertook', 'Supply', 'Devote', 'Secure', 'Customize', 'Disseminate', 'Resolve', 'Institute', 'Assist', 'Intervene', 'Investigate', 'Address', 'Care', 'Correlate', 'Model', 'Enumerate', 'Discriminate', 'Outline', 'Diagnose', 'Cooperate', 'Search', 'Accomplish', 'Teach', 'Interpret', 'Verify', 'Explore', ' Pioneer', 'Prevent', 'Visualize', 'Check', 'Establish', 'Distribute', 'Unify', 'Foster', 'Bargain', 'Renew', 'Expand', 'Upgrade', 'Experiment', 'Monitor', 'Moderate']
 	adj_insp = [Dusty, Superb, Weak, Female, Internal, Nostalgic, Uptight, Habitual, Woozy, Quiet, Thirsty, Fearful, Gleaming, Happy, Vagabond, Ill, Many, Deeply, Luxuriant, Present, Tall, Swanky, Clear, Tired, Fluffy, Blue-eyed, Average, Obscene, Parched, Uninterested, Important, Wooden, Late, Scattered, Materialistic, Alluring, Square, Sweltering, Capable, Gruesome, Maniacal, Periodic, Dashing, Whimsical, Overwrought, Future, Aquatic, Protective, Polite, Undesirable, Orange, Useful, Rich]
-	adv_insp = [Richly, Honorably, Ably, Magically, Abundantly, Nondescriptly, Hotly, Deafeningly, Viciously, Ferociously, Furiously, Hilariously, Basically, Parsimoniously, Royally, Readily, Strangely, Jokingly, Facetiously, Encouragingly, Enviously, Earsplittingly, Peacefully, Inquisitively, Tastefully, Incredibly, Beneficially, Defiantly, Tensely, Greatly, Firstly, Strongly, Gregariously, Prettily, Interestingly, Simply, Distinctly, Swiftly ]
+	adv_insp = [Richly, Honorably, Ably, Magically, Abundantly, Nondescriptly, Hotly, Deafeningly, Viciously, Ferociously, Furiously, Hilariously, Basically, Parsimoniously, Royally, Readily, Strangely, Jokingly, Facetiously, Encouragingly, Enviously, Earsplittingly, Peacefully, Inquisitively, Tastefully, Incredibly, Beneficially, Defiantly, Tensely, Greatly, Firstly, Strongly, Gregariously, Prettily, Interestingly, Simply, Distinctly, Swiftly]
 
 	final_madlib = []
 	print("Reach deep down into your soul and tell me a...")
@@ -68,7 +68,7 @@ def playage(madlib):
 					print(verb_insp[random.choice()])
 				elif key_pos == 'Adjective':
 					print(adj_insp[random.choice()])
-				elif key_pos == 'Adverb'
+				elif key_pos == 'Adverb':
 					print(adv_insp[random.choice()])
 			else:
 				madlib_list[blank_dict[key][0]]=fillintheblank
