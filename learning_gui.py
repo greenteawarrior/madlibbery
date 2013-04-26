@@ -1,11 +1,16 @@
 from swampy.Gui import *
 import Tkinter
 import sys
+import random
+import nltk
+import urllib2
+from bs4 import BeautifulSoup
+from threading import Timer
 
 g = Tkinter.Tk()
 g.title = ('MadlibMaker')
 
-canvas = Tkinter.Canvas()#width = 500, height = 500
+canvas = Tkinter.Canvas(width = 500, height = 500)
 canvas.config(bg = 'cyan')
 
 
@@ -13,7 +18,7 @@ def welcome():
 	def yesmake():
 		forget(make_welcome)
 		forget(continuebutton)
-		return(True) #(continuebutton, quitbutton)
+		#return(True) #(continuebutton, quitbutton)
 		makemadlib()
 	def quit():
 		sys.exit()
@@ -32,16 +37,21 @@ def makemadlib():
 	makemadlibtype = Tkinter.Label(text = "Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
 	makemadlibtype.pack()
 	def mine():
-		myinput = Tkinter.Text()
+		myinput = Tkinter.Entry()
+		myinput.pack()
+		myinputbutton.pack()
+	def minebutton():
 		inputstory = myinput.get()
 		inputstoryyours.pack_forget()
 		inputstorymine.pack_forget()
 		inputstoryurl.pack_forget()
+		makemadlibtype.pack_forget()
 	def yours():
 		inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
 		inputstoryyours.pack_forget()
 		inputstorymine.pack_forget()
 		inputstoryurl.pack_forget()
+		makemadlibtype.pack_forget()
 	def url():
 		try:
 			req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
@@ -53,37 +63,29 @@ def makemadlib():
 			inputstoryyours.pack_forget()
 			inputstorymine.pack_forget()
 			inputstoryurl.pack_forget() 
+			makemadlibtype.pack_forget()
+			urlinputbutton.pack()
 		except:
 			error = Tkinter.Label(text = "That is not a valid url.")
 			inputstoryurl = Tkinter.Button(text = 'Take text from a URL', command = url)			
-			#inputstory = False
-		#inputstory =
 
-
-	inputstoryyours = Tkinter.Button(text = 'Use one of our stories', command = yours)
-	inputstorymine = Tkinter.Button(text = 'Write or paste your own story', command = mine)
+	def urlbutton():
+		inputstory = myinput.get()
+		inputstoryyours.pack_forget()
+		inputstorymine.pack_forget()
+		inputstoryurl.pack_forget()
+		makemadlibtype.pack_forget()
+	inputstoryyours = Tkinter.Button(text = 'Use one of your stories' , command = yours)
+	inputstorymine = Tkinter.Button(text = 'Write or paste my own story', command = mine)
 	inputstoryurl = Tkinter.Button(text = 'Take text from a URL', command = url)
+	urlinputbutton = Tkinter.Button(text = "Submit", command = urlbutton)
+	myinputbutton = Tkinter.Button(text = "Submit", command = minebutton)
 	inputstoryyours.pack()
 	inputstorymine.pack()
 	inputstoryurl.pack()
-
-if welcome() == True
-	makemadlib()
-#if yes.get == 'yes':
-#	g.delete(make_welcome)
-#	g.delete(yesent)
-
-#def nicejob():
-	#nicejob = g.la(text = 'Nice Job')
+	howmanyblanks = Tkinter.Label(text = 'How many blanks would you like in your madlib?')
 
 
-#def button2():
-#	button2 = g.bu(text = 'press me!', command = nicejob)
-
-#button = g.bu(text = 'press me!', command = button2)
-
-
-#button = g.bu(text = )
 
 
 
