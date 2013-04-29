@@ -24,7 +24,7 @@ def pack(var):
 	var.pack()
 	forgetlist.append(var)
 def baking():
-	pleasewait = Tkinter.Label = (text = 'Please wait while we generate your madlib')
+	pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
 	#copy and paste NLTK stuff here
 def submitbutton():
 	inputstory = entry.get()
