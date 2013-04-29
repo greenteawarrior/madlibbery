@@ -1,0 +1,18 @@
+<!doctype html>
+<title>A short quiz</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+<div class=page>
+  <h1>madlibbery!</h1>
+  <div class=metanav>
+
+    <h4>
+      Your madlib is now ready (freshly out of the oven and smells ______, if I might add). Would you like to play?
+    </h4>
+
+    <form id='userinfoform' method='post' action='index' >
+    <input type='submit' value="Yay!" />
+    <input type='submit' value="No, give me a link and I'll play it later." />    
+    </form>
+
+  </div>
+</div>

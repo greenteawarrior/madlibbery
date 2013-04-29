@@ -1,0 +1,24 @@
+<!doctype html>
+<title>A short quiz</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+<div class=page>
+  <h1>madlibbery!</h1>
+  <div class=metanav>
+
+    <h4>
+      Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point).
+    </h4>
+
+    <form id='userinfoform' method='post' action='index' >
+      <p>
+    Type your story here!: <input type='text' name='inputstory' />
+      </p>
+      <p>
+    How many fill-in-the-blanks would you like in your madlib? (Type a number please!): <input type='text' name='totalblanks' />
+      </p>      
+    <input type='submit' value='Here we go!' />
+      </p>
+    </form>
+
+  </div>
+</div>
