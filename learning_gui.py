@@ -6,12 +6,12 @@ import nltk
 import urllib2
 from bs4 import BeautifulSoup
 from threading import Timer
-
+#fix it so how many blanks is after, howmanyblanks only takes numbers, and all of our other loverly restrictions on inputs.
 g = Tkinter.Tk()
 g.title = ('MadlibMaker')
 
-canvas = Tkinter.Canvas(width = 500, height = 500)
-canvas.config(bg = 'cyan')
+#canvas = Tkinter.Canvas(width = 500, height = 500)
+#canvas.config(bg = 'cyan')
 forgetlist = []
 
 def forget():
