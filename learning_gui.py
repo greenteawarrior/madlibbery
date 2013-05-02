@@ -62,7 +62,7 @@ def mine():
 	entry = Tkinter.Entry()
 	myinputstory = Tkinter.Button(text = "Submit", command = submitbutton)
 	pack(entry)#.pack()
-	pack(myinputbutton)#.pack()
+	pack(myinputstory)#.pack()
 	# inputstoryyours.pack_forget()
 	# inputstorymine.pack_forget()
 	# inputstoryurl.pack_forget()
