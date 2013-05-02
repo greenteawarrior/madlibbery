@@ -25,11 +25,9 @@ def pack(var):
 	forgetlist.append(var)
 def baking():
 	pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
+	pack(pleasewait)
 	#copy and paste NLTK stuff here
-def submitbutton():
-	inputstory = mystory.get()
-	forget()
-	baking()
+
 def howtoblank():
 	def howtoblankbutton():
 		myinput = howmanyblanks.get()
@@ -58,6 +56,10 @@ def welcome():
 welcome()
 
 def mine():
+	def submitbutton():
+		inputstory = mystory.get()
+		forget()
+		baking()
 	forget()
 	mystory = Tkinter.Entry()
 	myinputstory = Tkinter.Button(text = "Submit", command = submitbutton)
@@ -77,6 +79,10 @@ def yours():
 	# inputstoryurl.pack_forget()
 	# makemadlibtype.pack_forget()
 def url():
+	def submitbutton():
+		inputstory = mystory.get()
+		forget()
+		baking()
 	try:
 		req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
 		con = urllib2.urlopen( req )
