@@ -27,7 +27,7 @@ def baking():
 	pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
 	#copy and paste NLTK stuff here
 def submitbutton():
-	inputstory = entry.get()
+	inputstory = mystory.get()
 	forget()
 	baking()
 def howtoblank():
@@ -59,9 +59,9 @@ welcome()
 
 def mine():
 	forget()
-	entry = Tkinter.Entry()
+	mystory = Tkinter.Entry()
 	myinputstory = Tkinter.Button(text = "Submit", command = submitbutton)
-	pack(entry)#.pack()
+	pack(mystory)#.pack()
 	pack(myinputstory)#.pack()
 	# inputstoryyours.pack_forget()
 	# inputstorymine.pack_forget()
