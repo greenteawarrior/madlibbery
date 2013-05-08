@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 #import timeit
 from threading import Timer
 #import time
+import sys
+from termcolor import colored, cprint
 
 #emilywang, nicolerifkin, mauracosman
 #softdes!
@@ -54,6 +56,7 @@ def timing():
 	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
 
 def playage(madlib):
+	print ('playage start')
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
@@ -82,7 +85,7 @@ def playage(madlib):
 					print(random.choice(adv_insp))
 				timeelapsed.cancel()
 			else:
-				madlib_list[blank_dict[key][0]]=fillintheblank
+				madlib_list[blank_dict[key][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				filled = True
 				timeelapsed.cancel()
 	timeelapsed.cancel()
@@ -105,7 +108,6 @@ def madlibbing():
 		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib ")
 		if inputstorytype == 'yours':
 			inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
-			#print(inputstory)
 		elif inputstorytype == 'mine':
 			inputstory = raw_input("Type or paste your story here ") #check to make sure that entry is valid
 			print(inputstory)
