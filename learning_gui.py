@@ -148,7 +148,6 @@ def url():
 		inputstoryurl = Tkinter.Button(text = 'Take text from a URL', command = submitbutton)			
 
 
-
 def makemadlib():
 	forget()
 	makemadlibtype = Tkinter.Label(text = "Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")

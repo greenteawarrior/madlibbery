@@ -1,4 +1,4 @@
-import random
+\import random
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from threading import Timer
 #import time
 import sys
-from termcolor import colored, cprint
+from termcolor import colored, cprint #see https://pypi.python.org/pypi/termcolor
 
 #emilywang, nicolerifkin, mauracosman
 #softdes!
