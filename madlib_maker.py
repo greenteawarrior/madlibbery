@@ -2,9 +2,8 @@
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
-#import timeit
 from threading import Timer
-#import time
+import re
 import sys
 from termcolor import colored, cprint #see https://pypi.python.org/pypi/termcolor
 
@@ -39,6 +38,10 @@ def blankage(inputstory_list):
 	for i in tagged:
 		if i[1] in blankable_poslist:
 			blankables = blankables + 1
+	if blankables <= 2:
+		print("We don't think that this text will make a good madlib. Please try again.")
+		madlibbing()
+
 	#print(blankables)
 
 	while howmanyblanks < totalblanks and howmanyblanks < blankables:
@@ -56,7 +59,6 @@ def timing():
 	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
 
 def playage(madlib):
-	print ('playage start')
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
@@ -67,6 +69,21 @@ def playage(madlib):
 	adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly']
 	print("Reach deep down into your soul and tell me a...")
 
+
+
+
+	keyslist = blank_dict.keys()
+	x = 0
+	def inspiration():
+#		if fillintheblank == 'i':
+			if key_pos == 'Noun':
+				print(random.choice(noun_insp))
+			elif key_pos == 'Verb':
+				print(random.choice(verb_insp))
+			elif key_pos == 'Adjective':
+				print(random.choice(adj_insp))
+			elif key_pos == 'Adverb':
+				print(random.choice(adv_insp))
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
@@ -74,20 +91,26 @@ def playage(madlib):
 			timeelapsed = Timer(15.0, timing)
 			timeelapsed.start()
 			fillintheblank=raw_input(key_pos + ': ')
+			if x == 0:
+				print
+				print("To change your previous answer, press 'u' and hit enter")
+				print
 			if fillintheblank == 'i':
-				if key_pos == 'Noun':
-					print(random.choice(noun_insp))
-				elif key_pos == 'Verb':
-					print(random.choice(verb_insp))
-				elif key_pos == 'Adjective':
-					print(random.choice(adj_insp))
-				elif key_pos == 'Adverb':
-					print(random.choice(adv_insp))
+				inspiration()
 				timeelapsed.cancel()
+			elif fillintheblank == 'u' and x > 0:
+				key_pos=pos_dict[blank_dict[keyslist[x-1]][1]]
+				fillintheblank=raw_input(key_pos + ': ')
+				timeelapsed.cancel()
+				if fillintheblank == 'i':
+					inspiration()
+				else:
+					madlib_list[blank_dict[keyslist[x-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 			else:
 				madlib_list[blank_dict[key][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				filled = True
 				timeelapsed.cancel()
+		x += 1
 	timeelapsed.cancel()
 	return madlib_list
 
@@ -101,29 +124,33 @@ def madlibbing():
 		letsmake = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
 
 	print
-	print("Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
+	print("Would you like to use one of our Madlib stories, or create your own, or use a random wikipedia article?")
 	print
 	inputstory = False
 	while inputstory == False:
-		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib ")
+		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'wiki' to turn the text from a random wikipedia article into a madlib ")
 		if inputstorytype == 'yours':
 			inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
 		elif inputstorytype == 'mine':
 			inputstory = raw_input("Type or paste your story here ") #check to make sure that entry is valid
-			print(inputstory)
-		elif inputstorytype == 'url':
-			url = raw_input("Paste a valid url here ")
-			try:
-				req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
-				con = urllib2.urlopen( req )
-				#data = urllib2.urlopen(url).read()
-				newdata= BeautifulSoup(con).get_text()
-				a = newdata.strip('\n')
-				inputstory = a.strip('')
-				print(inputstory) 
-			except:
-				print("That is not a valid url.")
-				inputstory = False
+			while len(inputstory.split()) <= 10:
+				print(inputstory)
+				print ("We don't think that story is long enough to produce a fun madlib. Please extend it or write another.")
+				inputstory = raw_input("Type or paste your story here ")
+		elif inputstorytype == 'wiki':
+			url = 'http://www.wikipedia.org/wiki/Special:random'
+			req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+			con = urllib2.urlopen( req ).read()
+			results = re.findall('<p>(.*)</p>', con)
+			wikipediatxt = results[0]
+			inputstory = BeautifulSoup(wikipediatxt).get_text()
+			print
+			titlehtml = re.findall('<title>(.*)- Wikipedia', con)
+			print
+			print('The title of your madlib is: ' + str(titlehtml)[2:-2])
+			# print(newdata)
+			# a = newdata.strip('\n')
+			# inputstory = a.strip('')
 
 	inputstory_list = inputstory.split() 
 	#turn the inputstory into a list, where each element is a word. this isn't very friendly to spacebar typos.
