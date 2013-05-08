@@ -80,82 +80,68 @@ def letsplay(inputstory):
 	pack(howmanyblanksq)
 	pack(howmanyblanksentry)
 	pack(howmanyblanksbutton)
+	madlib=howtoblank(inputstory_list)# need to fix this line.
+	playage(madlib)
 		#return(howtoblankbutton())
-def playage(madlib): #copied madlib maker and nltk stuff so that I can use it to compare
-	# unpacking the madlib
-	madlib = blankage(inputstory_list)
 	def timing():
 		print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
-	# def playage(madlib):
-	# 	madlib_list = madlib[0]
-	# 	blank_dict = madlib[1]
-	# 	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
-	# 	noun_insp = ['Acoustic', 'Curve', 'Custard', 'Hen', 'Jaw', 'Bladder', 'Detail', 'Output', 'Polo', 'Sideboard', 'Single', 'Tiger', 'Fahrenheit', 'Lettuce', 'Owner', 'Parsnip', 'Path', 'Resolution', 'Sardine', 'Scarecrow', 'Badger', 'Butter', 'Coast', 'Difference', 'Jam', 'Loaf', 'Methane', 'Sense', 'Stew', 'Apology', 'Carpenter', 'Eyeliner', 'Form', 'Sister', 'Handsaw', 'Save', 'Softdrink', 'Study', 'Tent', 'Bath', 'Cast', 'Creature', 'Freighter', 'Nail', 'Pie', 'Repair', 'Request', 'Throat', 'Wolf', 'Ornament', 'Pan', 'Supply', 'Uncle', 'Wallet']
-	# 	verb_insp = ['Elicit', 'Save', 'Solve', 'Draw', 'Forecast', 'Execute', 'Travel', 'Research', 'Assume', 'Compile', 'Upheld', 'Differentiate', 'Sustain', 'Code', 'Fix', 'Replace', 'Import', 'Coordinate', 'Undertook', 'Supply', 'Devote', 'Secure', 'Customize', 'Disseminate', 'Resolve', 'Institute', 'Assist', 'Intervene', 'Investigate', 'Address', 'Care', 'Correlate', 'Model', 'Enumerate', 'Discriminate', 'Outline', 'Diagnose', 'Cooperate', 'Search', 'Accomplish', 'Teach', 'Interpret', 'Verify', 'Explore', ' Pioneer', 'Prevent', 'Visualize', 'Check', 'Establish', 'Distribute', 'Unify', 'Foster', 'Bargain', 'Renew', 'Expand', 'Upgrade', 'Experiment', 'Monitor', 'Moderate']
-	# 	adj_insp = ['Dusty', 'Superb', 'Weak', 'Female', 'Internal', 'Nostalgic', 'Uptight', 'Habitual', 'Woozy', 'Quiet', 'Thirsty', 'Fearful', 'Gleaming', 'Happy', 'Vagabond', 'Ill', 'Many', 'Deeply', 'Luxuriant', 'Present', 'Tall', 'Swanky', 'Clear', 'Tired', 'Fluffy', 'Blue-eyed', 'Average', 'Obscene', 'Parched', 'Uninterested', 'Important', 'Wooden', 'Late', 'Scattered', 'Materialistic', 'Alluring', 'Square', 'Sweltering', 'Capable', 'Gruesome', 'Maniacal', 'Periodic', 'Dashing', 'Whimsical', 'Overwrought', 'Future', 'Aquatic', 'Protective', 'Polite', 'Undesirable', 'Orange', 'Useful', 'Rich']
-	# 	adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly']
-	# 	print("Reach deep down into your soul and tell me a...")
 
-	# 	for key in blank_dict:
-	# 		key_pos=pos_dict[blank_dict[key][1]]
-	# 		filled = False
-	# 		while not filled:
-	# 			timeelapsed = Timer(15.0, timing)
-	# 			timeelapsed.start()
-	# 			# this is where we need labels and stuff!
-	# 			fillintheblank=raw_input(key_pos + ': ')
-	# 			if fillintheblank == 'i':
-	# 				if key_pos == 'Noun':
-	# 					print(random.choice(noun_insp))
-	# 				elif key_pos == 'Verb':
-	# 					print(random.choice(verb_insp))
-	# 				elif key_pos == 'Adjective':
-	# 					print(random.choice(adj_insp))
-	# 				elif key_pos == 'Adverb':
-	# 					print(random.choice(adv_insp))
-	# 				timeelapsed.cancel()
-	# 			else:
-	# 				madlib_list[blank_dict[key][0]]=fillintheblank
-	# 				filled = True
-	# 				timeelapsed.cancel()
-	# 	timeelapsed.cancel()
-	# 	return madlib_list
+	def playage(madlib): #copied madlib maker and nltk stuff so that I can use it to compare
+		# unpacking the madlib
+		madlib_list = madlib[0]
+		blank_dict = madlib[1]
+		pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
+		noun_insp = ['Acoustic', 'Curve', 'Custard', 'Hen', 'Jaw', 'Bladder', 'Detail', 'Output', 'Polo', 'Sideboard', 'Single', 'Tiger', 'Fahrenheit', 'Lettuce', 'Owner', 'Parsnip', 'Path', 'Resolution', 'Sardine', 'Scarecrow', 'Badger', 'Butter', 'Coast', 'Difference', 'Jam', 'Loaf', 'Methane', 'Sense', 'Stew', 'Apology', 'Carpenter', 'Eyeliner', 'Form', 'Sister', 'Handsaw', 'Save', 'Softdrink', 'Study', 'Tent', 'Bath', 'Cast', 'Creature', 'Freighter', 'Nail', 'Pie', 'Repair', 'Request', 'Throat', 'Wolf', 'Ornament', 'Pan', 'Supply', 'Uncle', 'Wallet']
+		verb_insp = ['Elicit', 'Save', 'Solve', 'Draw', 'Forecast', 'Execute', 'Travel', 'Research', 'Assume', 'Compile', 'Upheld', 'Differentiate', 'Sustain', 'Code', 'Fix', 'Replace', 'Import', 'Coordinate', 'Undertook', 'Supply', 'Devote', 'Secure', 'Customize', 'Disseminate', 'Resolve', 'Institute', 'Assist', 'Intervene', 'Investigate', 'Address', 'Care', 'Correlate', 'Model', 'Enumerate', 'Discriminate', 'Outline', 'Diagnose', 'Cooperate', 'Search', 'Accomplish', 'Teach', 'Interpret', 'Verify', 'Explore', ' Pioneer', 'Prevent', 'Visualize', 'Check', 'Establish', 'Distribute', 'Unify', 'Foster', 'Bargain', 'Renew', 'Expand', 'Upgrade', 'Experiment', 'Monitor', 'Moderate']
+		adj_insp = ['Dusty', 'Superb', 'Weak', 'Female', 'Internal', 'Nostalgic', 'Uptight', 'Habitual', 'Woozy', 'Quiet', 'Thirsty', 'Fearful', 'Gleaming', 'Happy', 'Vagabond', 'Ill', 'Many', 'Deeply', 'Luxuriant', 'Present', 'Tall', 'Swanky', 'Clear', 'Tired', 'Fluffy', 'Blue-eyed', 'Average', 'Obscene', 'Parched', 'Uninterested', 'Important', 'Wooden', 'Late', 'Scattered', 'Materialistic', 'Alluring', 'Square', 'Sweltering', 'Capable', 'Gruesome', 'Maniacal', 'Periodic', 'Dashing', 'Whimsical', 'Overwrought', 'Future', 'Aquatic', 'Protective', 'Polite', 'Undesirable', 'Orange', 'Useful', 'Rich']
+		adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly']
+		print("Reach deep down into your soul and tell me a...")
 
-
-	# playing = False
-	# while playing == False:
-	# 	playing = playage(madlib)
-	# complete= Tkinter.Label(text='Your madlib is complete!')
-	# readmadlib= Tkinter.Button(text= 'Click here to read your new Madlib!', command= Finished)
-	# pack(complete)
-	# pack(readmadlib)
-
-	# 	#end of copied stuff here
-	# def Finished():
-	# 	forget()
-	# 	Undobutton= Tkinter.Button(text = "Undo", command = randombaking)
-	# 	finishedmadlib = ''
-	# 	for word in playing:
-	# 		finishedmadlib += word + ' '
-	# 	finalproduct= Tkinter.Label(text=finishedmadlib)
-	# 	pack(Undobutton)
-	# 	pack(finalproduct)
+		for key in blank_dict:
+			key_pos=pos_dict[blank_dict[key][1]]
+			filled = False
+			while not filled:
+				timeelapsed = Timer(15.0, timing)
+				timeelapsed.start()
+				# this is where we need labels and stuff!
+				fillintheblank=raw_input(key_pos + ': ')
+				if fillintheblank == 'i':
+					if key_pos == 'Noun':
+						print(random.choice(noun_insp))
+					elif key_pos == 'Verb':
+						print(random.choice(verb_insp))
+					elif key_pos == 'Adjective':
+						print(random.choice(adj_insp))
+					elif key_pos == 'Adverb':
+						print(random.choice(adv_insp))
+					timeelapsed.cancel()
+				else:
+					madlib_list[blank_dict[key][0]]=fillintheblank
+					filled = True
+					timeelapsed.cancel()
+		timeelapsed.cancel()
+		return madlib_list
 
 
+		playing = False
+		while playing == False:
+			playing = playage(madlib)
+		complete= Tkinter.Label(text='Your madlib is complete!')
+		readmadlib= Tkinter.Button(text= 'Click here to read your new Madlib!', command= Finished)
+		pack(complete)
+		pack(readmadlib)
 
-def howtoblank():
-	def howtoblankbutton():
-		myinputnumber = howmanyblanks.get()
-		makemadlib()
-	forget()
-	howmanyblanksq = Tkinter.Label(text = 'How many blanks would you like in your madlib?')
-	howmanyblanks= Tkinter.Entry()
-	howmanyblanksbutton = Tkinter.Button(text = "Submit", command = howtoblankbutton)
-	Undobutton= Tkinter.Button(text = "Undo", command = welcome)
-	pack(Undobutton)
-	pack(howmanyblanksq)
-	pack(howmanyblanks)
-	pack(howmanyblanksbutton)
+		#end of copied stuff here
+	def Finished():
+		forget()
+		Undobutton= Tkinter.Button(text = "Undo", command = randombaking)
+		finishedmadlib = ''
+		for word in playing:
+			finishedmadlib += word + ' '
+		finalproduct= Tkinter.Label(text=finishedmadlib)
+		pack(Undobutton)
+		pack(finalproduct)
+
 def welcome():
 	def yesmake():
 		forget()
