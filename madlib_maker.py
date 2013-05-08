@@ -56,7 +56,6 @@ def timing():
 	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
 
 def playage(madlib):
-	print ('playage start')
 	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
@@ -67,6 +66,11 @@ def playage(madlib):
 	adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly']
 	print("Reach deep down into your soul and tell me a...")
 
+
+
+
+	keyslist = blank_dict.keys()
+	i = 0
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
@@ -74,6 +78,10 @@ def playage(madlib):
 			timeelapsed = Timer(15.0, timing)
 			timeelapsed.start()
 			fillintheblank=raw_input(key_pos + ': ')
+			if i == 0:
+				print
+				print("To change your previous answer, press 'u' and hit enter")
+				print
 			if fillintheblank == 'i':
 				if key_pos == 'Noun':
 					print(random.choice(noun_insp))
@@ -84,10 +92,16 @@ def playage(madlib):
 				elif key_pos == 'Adverb':
 					print(random.choice(adv_insp))
 				timeelapsed.cancel()
+			elif fillintheblank == 'u' and i > 0:
+				key_pos=pos_dict[blank_dict[keyslist[i-1]][1]]
+				fillintheblank=raw_input(key_pos + ': ')
+				madlib_list[blank_dict[keyslist[i-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
+				timeelapsed.cancel()
 			else:
 				madlib_list[blank_dict[key][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				filled = True
 				timeelapsed.cancel()
+		i += 1
 	timeelapsed.cancel()
 	return madlib_list
 
