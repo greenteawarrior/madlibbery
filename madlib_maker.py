@@ -4,7 +4,7 @@ import urllib2
 from bs4 import BeautifulSoup
 #import timeit
 from threading import Timer
-#import time
+import re
 import sys
 from termcolor import colored, cprint
 
@@ -74,7 +74,7 @@ def playage(madlib):
 
 
 	keyslist = blank_dict.keys()
-	i = 0
+	x = 0
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
@@ -82,7 +82,7 @@ def playage(madlib):
 			timeelapsed = Timer(15.0, timing)
 			timeelapsed.start()
 			fillintheblank=raw_input(key_pos + ': ')
-			if i == 0:
+			if x == 0:
 				print
 				print("To change your previous answer, press 'u' and hit enter")
 				print
@@ -96,16 +96,16 @@ def playage(madlib):
 				elif key_pos == 'Adverb':
 					print(random.choice(adv_insp))
 				timeelapsed.cancel()
-			elif fillintheblank == 'u' and i > 0:
-				key_pos=pos_dict[blank_dict[keyslist[i-1]][1]]
+			elif fillintheblank == 'u' and x > 0:
+				key_pos=pos_dict[blank_dict[keyslist[x-1]][1]]
 				fillintheblank=raw_input(key_pos + ': ')
-				madlib_list[blank_dict[keyslist[i-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
+				madlib_list[blank_dict[keyslist[x-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				timeelapsed.cancel()
 			else:
 				madlib_list[blank_dict[key][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				filled = True
 				timeelapsed.cancel()
-		i += 1
+		x += 1
 	timeelapsed.cancel()
 	return madlib_list
 
@@ -119,11 +119,11 @@ def madlibbing():
 		letsmake = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
 
 	print
-	print("Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
+	print("Would you like to use one of our Madlib stories, or create your own, or use a random wikipedia article?")
 	print
 	inputstory = False
 	while inputstory == False:
-		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'url' to turn the text from a website URL into a madlib ")
+		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'wiki' to turn the text from a random wikipedia article into a madlib ")
 		if inputstorytype == 'yours':
 			inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
 		elif inputstorytype == 'mine':
@@ -132,19 +132,22 @@ def madlibbing():
 				print(inputstory)
 				print ("We don't think that story is long enough to produce a fun madlib. Please extend it or write another.")
 				inputstory = raw_input("Type or paste your story here ")
-		elif inputstorytype == 'url':
-			url = raw_input("Paste a valid url here ")
-			try:
-				req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
-				con = urllib2.urlopen( req )
-				#data = urllib2.urlopen(url).read()
-				newdata= BeautifulSoup(con).get_text()
-				a = newdata.strip('\n')
-				inputstory = a.strip('')
-				print(inputstory) 
-			except:
-				print("That is not a valid url.")
-				inputstory = False
+		elif inputstorytype == 'wiki':
+			url = 'http://www.wikipedia.org/wiki/Special:random'
+			req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+			con = urllib2.urlopen( req ).read()
+			results = re.findall('<p>(.*)</p>', con)
+			wikipediatxt = results[0]
+			inputstory = BeautifulSoup(wikipediatxt).get_text()
+			#title
+			titlehtml = re.findall('<title>(.*)- Wikipedia', con)
+			print
+			print('The title of your madlib is: ' + str(titlehtml)[2:-2])
+			#print(titlehtml)
+			#print 'The title of your Madlib is ' + title
+			# print(newdata)
+			# a = newdata.strip('\n')
+			# inputstory = a.strip('')
 
 	inputstory_list = inputstory.split() 
 	#turn the inputstory into a list, where each element is a word. this isn't very friendly to spacebar typos.
