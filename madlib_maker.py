@@ -2,7 +2,6 @@ import random
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
-#import timeit
 from threading import Timer
 import re
 import sys
@@ -75,6 +74,16 @@ def playage(madlib):
 
 	keyslist = blank_dict.keys()
 	x = 0
+	def inspiration():
+#		if fillintheblank == 'i':
+			if key_pos == 'Noun':
+				print(random.choice(noun_insp))
+			elif key_pos == 'Verb':
+				print(random.choice(verb_insp))
+			elif key_pos == 'Adjective':
+				print(random.choice(adj_insp))
+			elif key_pos == 'Adverb':
+				print(random.choice(adv_insp))
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
@@ -87,20 +96,16 @@ def playage(madlib):
 				print("To change your previous answer, press 'u' and hit enter")
 				print
 			if fillintheblank == 'i':
-				if key_pos == 'Noun':
-					print(random.choice(noun_insp))
-				elif key_pos == 'Verb':
-					print(random.choice(verb_insp))
-				elif key_pos == 'Adjective':
-					print(random.choice(adj_insp))
-				elif key_pos == 'Adverb':
-					print(random.choice(adv_insp))
+				inspiration()
 				timeelapsed.cancel()
 			elif fillintheblank == 'u' and x > 0:
 				key_pos=pos_dict[blank_dict[keyslist[x-1]][1]]
 				fillintheblank=raw_input(key_pos + ': ')
-				madlib_list[blank_dict[keyslist[x-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				timeelapsed.cancel()
+				if fillintheblank == 'i':
+					inspiration()
+				else:
+					madlib_list[blank_dict[keyslist[x-1]][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 			else:
 				madlib_list[blank_dict[key][0]]=colored(fillintheblank, 'red', attrs = ['reverse', 'blink'])
 				filled = True
@@ -139,12 +144,10 @@ def madlibbing():
 			results = re.findall('<p>(.*)</p>', con)
 			wikipediatxt = results[0]
 			inputstory = BeautifulSoup(wikipediatxt).get_text()
-			#title
+			print
 			titlehtml = re.findall('<title>(.*)- Wikipedia', con)
 			print
 			print('The title of your madlib is: ' + str(titlehtml)[2:-2])
-			#print(titlehtml)
-			#print 'The title of your Madlib is ' + title
 			# print(newdata)
 			# a = newdata.strip('\n')
 			# inputstory = a.strip('')
