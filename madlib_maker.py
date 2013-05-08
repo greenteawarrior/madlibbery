@@ -39,6 +39,10 @@ def blankage(inputstory_list):
 	for i in tagged:
 		if i[1] in blankable_poslist:
 			blankables = blankables + 1
+	if blankables <= 2:
+		print("We don't think that this text will make a good madlib. Please try again.")
+		madlibbing()
+
 	#print(blankables)
 
 	while howmanyblanks < totalblanks and howmanyblanks < blankables:
@@ -124,7 +128,10 @@ def madlibbing():
 			inputstory = 'There was a strange creature wandering around Olin. It had the head of a cat and the body of an octopus. I decided to call it Octocat.'
 		elif inputstorytype == 'mine':
 			inputstory = raw_input("Type or paste your story here ") #check to make sure that entry is valid
-			print(inputstory)
+			while len(inputstory.split()) <= 10:
+				print(inputstory)
+				print ("We don't think that story is long enough to produce a fun madlib. Please extend it or write another.")
+				inputstory = raw_input("Type or paste your story here ")
 		elif inputstorytype == 'url':
 			url = raw_input("Paste a valid url here ")
 			try:
