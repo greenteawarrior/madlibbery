@@ -23,27 +23,20 @@ def forget():
 def pack(var):
 	var.pack()
 	forgetlist.append(var)
-def randombaking():
-	forget()
-	Undobutton= Tkinter.Button(text = "Undo", command = howtoblank)
-	pack(Undobutton)
-	pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
-	pack(pleasewait)
-	letsplay()
 
 
 def baking():
 	forget()
-	Undobutton= Tkinter.Button(text = "Undo", command = makemadlib)
-	pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
-	pack(Undobutton)
-	pack(pleasewait)
-	warning= Tkinter.Label(text = 'Only verbs, adjectives, adverbs, and nouns can be selected to be replaced')
-	pack (warning)
-	letsplay()
+	Undobutton= Tkinter.Button(text = "Undo", command = welcome)
+	# pleasewait = Tkinter.Label(text = 'Please wait while we generate your madlib')
+	# pack(Undobutton)
+	# pack(pleasewait)
+	# warning= Tkinter.Label(text = 'Only verbs, adjectives, adverbs, and nouns can be selected to be replaced')
+	# pack (warning)
+	# letsplay()
 
 
-def letsplay():
+def letsplay(inputstory):
 	inputstory_list = inputstory.split()
 	def blankage(inputstory_list):# copy and pasted nltk stuff need to adjust
 		blank = '_____' #this is a string of five underscores
@@ -58,8 +51,21 @@ def letsplay():
 			if i[1] in blankable_poslist:
 				blankables = blankables + 1
 		#print(blankables)
-
-		while howmanyblanks < myinput and howmanyblanks < blankables:
+		def howtoblank():
+			def howtoblankbutton():
+				myinputnumber = howmanyblanks.get()
+				return(myinputnumber)
+			forget()
+			howmanyblanksq = Tkinter.Label(text = 'How many blanks would you like in your madlib?')
+			howmanyblanks= Tkinter.Entry()
+			howmanyblanksbutton = Tkinter.Button(text = "Submit", command = howtoblankbutton)
+			Undobutton= Tkinter.Button(text = "Undo", command = welcome)
+			pack(Undobutton)
+			pack(howmanyblanksq)
+			pack(howmanyblanks)
+			pack(howmanyblanksbutton)
+			return(howtoblankbutton())
+		while howmanyblanks < howtoblank() and howmanyblanks < blankables:
 			wordtoblank = random.choice(inputstory_list)
 			wordtoblank_index = inputstory_list.index(wordtoblank)
 			wordtoblank_pos = tagged[wordtoblank_index][1]#nltk stuff
@@ -130,24 +136,26 @@ def letsplay():
 
 
 
-def howtoblank():
-	def howtoblankbutton():
-		myinput = howmanyblanks.get()
-		forget()
-		randombaking()
-	forget()
-	howmanyblanksq = Tkinter.Label(text = 'How many blanks would you like in your madlib?')
-	howmanyblanks= Tkinter.Entry()
-	howmanyblanksbutton = Tkinter.Button(text = "Submit", command = howtoblankbutton)
-	Undobutton= Tkinter.Button(text = "Undo", command = makemadlib)
-	pack(Undobutton)
-	pack(howmanyblanksq)
-	pack(howmanyblanks)
-	pack(howmanyblanksbutton)
+# def howtoblank():
+# 	def howtoblankbutton():
+# 		myinputnumber = howmanyblanks.get()
+# 		makemadlib()
+# 	forget()
+# 	howmanyblanksq = Tkinter.Label(text = 'How many blanks would you like in your madlib?')
+# 	howmanyblanks= Tkinter.Entry()
+# 	howmanyblanksbutton = Tkinter.Button(text = "Submit", command = howtoblankbutton)
+# 	Undobutton= Tkinter.Button(text = "Undo", command = welcome)
+# 	pack(Undobutton)
+# 	pack(howmanyblanksq)
+# 	pack(howmanyblanks)
+# 	pack(howmanyblanksbutton)
 def welcome():
 	def yesmake():
 		forget()
-		makemadlib()
+		Randombakingbutton= Tkinter.Button(text = "Click here if you wish for the words to be madlibbed in your paragraph to be selected randomly", command = makemadlib)
+		pack(Randombakingbutton)
+		Bakingbutton= Tkinter.Button(text= "Click here if you wish to manually select the words to be madlibbed", command = baking)
+		pack(Bakingbutton)
 	def quit():
 		sys.exit()
 	make_welcome = Tkinter.Label(text = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point).")
@@ -162,12 +170,13 @@ welcome()
 
 def mine():
 	def submitbutton():
-		inputstory = mystory.get()
 		forget()
-		Randombakingbutton= Tkinter.Button(text = "Click here if you wish for the words to be madlibbed in your paragraph to be selected randomly", command = howtoblan
-		pack(Randombakingbutton)
-		Bakingbutton= Tkinter.Button(text= "Click here if you wish to manually select the words to be madlibbed", command = baking)
-		pack(Bakingbutton)
+		inputstory = mystory.get()
+		letsplay(inputstory)
+		# Randombakingbutton= Tkinter.Button(text = "Click here if you wish for the words to be madlibbed in your paragraph to be selected randomly", command = howtoblan
+		# pack(Randombakingbutton)
+		# Bakingbutton= Tkinter.Button(text= "Click here if you wish to manually select the words to be madlibbed", command = baking)
+		# pack(Bakingbutton)
 	forget()
 	mystory = Tkinter.Entry()
 	Undobutton= Tkinter.Button(text = "Undo", command = makemadlib)
@@ -185,10 +194,7 @@ def yours():
 	forget()
 	Undobutton= Tkinter.Button(text = "Undo", command = makemadlib)
 	pack(Undobutton)
-	Randombakingbutton= Tkinter.Button(text = "Click here if you wish for the words to be madlibbed in your paragraph to be selected randomly", command = howtoblank)
-	pack(Randombakingbutton)
-	Bakingbutton= Tkinter.Button(text= "Click here if you wish to manually select the words to be madlibbed", command = baking)
-	pack(Bakingbutton)
+	letsplay(inputstory)
 	# inputstoryyours.pack_forget()
 	# inputstorymine.pack_forget()
 	# inputstoryurl.pack_forget()
@@ -223,6 +229,8 @@ def url():
 
 def makemadlib():
 	forget()
+	Undobutton= Tkinter.Button(text = "Undo", command = welcome)
+	pack(Undobutton)
 	makemadlibtype = Tkinter.Label(text = "Would you like to use one of our Madlib stories, choose one from elsewhere, or create your own?")
 	inputstoryyours = Tkinter.Button(text = 'Use one of your stories' , command = yours)
 	inputstorymine = Tkinter.Button(text = 'Write or paste my own story', command = mine)
