@@ -11,10 +11,13 @@ from termcolor import colored, cprint #see https://pypi.python.org/pypi/termcolo
 #softdes!
 #madlib generator
 
+#If they don't want to play, let them say no. (i.e. letsmake and letsbegin)
+#Manual Override Pos
+#make sure they can't ask for more madlibs than possible
 
 def blankage(inputstory_list):
-	"""takes in text to be used as madlib, randomly chooses words and replaces them with blanks"""
-	howtoblank= False 
+	#make while loops later to make this program typo-proof o.o
+	howtoblank= False #initial value-ing
 	while howtoblank == False:
 		totalblanks = raw_input("How many blanks would you like in your madlib?")
 		try:
@@ -23,26 +26,28 @@ def blankage(inputstory_list):
 		except:
 			howtoblank = False
 		
-	blank = '_____' 
+	blank = '_____' #this is a string of five underscores
 	blank_dict = {}
 	tagged = nltk.pos_tag(inputstory_list)
-
+	#print (tagged)
 
 	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB']
-	howmanyblanks = 0 
+	howmanyblanks = 0 #counter for current amount of blanks in madlib in progress
 
 	blankables = 0
-	for i in tagged: #count maximum possible blanks
+	for i in tagged:
 		if i[1] in blankable_poslist:
 			blankables = blankables + 1
 	if blankables <= 2:
 		print("We don't think that this text will make a good madlib. Please try again.")
 		madlibbing()
 
+	#print(blankables)
+
 	while howmanyblanks < totalblanks and howmanyblanks < blankables:
 		wordtoblank = random.choice(inputstory_list)
 		wordtoblank_index = inputstory_list.index(wordtoblank)
-		wordtoblank_pos = tagged[wordtoblank_index][1]#tag word based on part of speech
+		wordtoblank_pos = tagged[wordtoblank_index][1]#nltk stuff
 		if wordtoblank_pos in blankable_poslist and wordtoblank != blank:
 			howmanyblanks = howmanyblanks + 1
 			blank_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
@@ -51,11 +56,10 @@ def blankage(inputstory_list):
 
 
 def timing():
-	"""When the timer runs out, prints inspiration message"""
 	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ")
 
 def playage(madlib):
-	"""Has the player fill in the blanks by taking list of words in story with blanks and a dictionary where the key is blanked words and the value is their part of speech, and their index. """
+	#unpacking the madlib
 	madlib_list = madlib[0]
 	blank_dict = madlib[1]
 	pos_dict= {'NN': 'Noun', 'VB': 'Verb', 'VBP': 'Verb', 'JJ': 'Adjective', 'RB': 'Adverb'}
@@ -71,7 +75,7 @@ def playage(madlib):
 	keyslist = blank_dict.keys()
 	x = 0
 	def inspiration():
-		"""Display a random word that matches the part of speech of the blanked word"""
+#		if fillintheblank == 'i':
 			if key_pos == 'Noun':
 				print(random.choice(noun_insp))
 			elif key_pos == 'Verb':
@@ -111,7 +115,6 @@ def playage(madlib):
 	return madlib_list
 
 def madlibbing():
-	"""Main function that calls blankage and playage. Creates welcome message, determines source of text for the madlib, and ultimately displays final product"""
 	print	
 	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
 	print (make_welcome)
@@ -145,9 +148,13 @@ def madlibbing():
 			titlehtml = re.findall('<title>(.*)- Wikipedia', con)
 			print
 			print('The title of your madlib is: ' + str(titlehtml)[2:-2])
+			# print(newdata)
+			# a = newdata.strip('\n')
+			# inputstory = a.strip('')
 
 	inputstory_list = inputstory.split() 
-
+	#turn the inputstory into a list, where each element is a word. this isn't very friendly to spacebar typos.
+	#we chose a list rather than a dictionary because even though dictionaries are faster, we need the elements to be sequential.
 
 	madlib = False
 	while madlib == False:
