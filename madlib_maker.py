@@ -1,11 +1,11 @@
-import random
-import nltk
+import random #allows for random choice
+import nltk #Our part of speech tagger
 import urllib2
 from bs4 import BeautifulSoup
-from threading import Timer
-import re
+from threading import Timer #imports a timer for our inspiration button
+import re #allows us to use regular expressions
 import sys
-from termcolor import colored, cprint #see https://pypi.python.org/pypi/termcolor
+from termcolor import colored, cprint #see https://pypi.python.org/pypi/termcolor   allows us to highlight changed words when depicted in the final madlib
 
 #emilywang, nicolerifkin, mauracosman
 #softdes!
@@ -16,38 +16,38 @@ def blankage(inputstory_list):
 	"""takes in text to be used as madlib, randomly chooses words and replaces them with blanks"""
 	howtoblank= False 
 	while howtoblank == False:
-		totalblanks = raw_input("How many blanks would you like in your madlib?")
+		totalblanks = raw_input("How many blanks would you like in your madlib?") #determines how many words the user will replace
 		try:
-			totalblanks = int(totalblanks)
+			totalblanks = int(totalblanks) # if the input is an integer, the answer will be accepted
 			howtoblank = True	
 		except:
-			howtoblank = False
+			howtoblank = False # if the input is not an integer it will prompt them to try another input
 		
-	blank = '_____' 
-	blank_dict = {}
-	tagged = nltk.pos_tag(inputstory_list)
+	blank = '_____'  #this is simply a placeholder
+	blank_dict = {}  #the dictionary all blanked out words will be added to
+	tagged = nltk.pos_tag(inputstory_list)  #takes the input story and part of speech tags every word in the input
 
 
-	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB']
-	howmanyblanks = 0 
+	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB'] #part of speech tags nltk uses
+	howmanyblanks = 0 #initially starts the number of blanks in the madlib at 0
 
-	blankables = 0
+	blankables = 0 #initially starts the total potential words eligible to be blanked out at 0
 	for i in tagged: #count maximum possible blanks
 		if i[1] in blankable_poslist:
-			blankables = blankables + 1
+			blankables = blankables + 1 #for every word tagged that shares the pos tag as in the list, the total number of eligible words that can be blanked goes up one
 	if blankables <= 2:
-		print("We don't think that this text will make a good madlib. Please try again.")
+		print("We don't think that this text will make a good madlib. Please try again.") # prevents a madlib from being too short
 		madlibbing()
 
-	while howmanyblanks < totalblanks and howmanyblanks < blankables:
-		wordtoblank = random.choice(inputstory_list)
-		wordtoblank_index = inputstory_list.index(wordtoblank)
+	while howmanyblanks < totalblanks and howmanyblanks < blankables: # prevents user from asking for more blanks than possible as well as preventing more blanks from being filled than asked
+		wordtoblank = random.choice(inputstory_list) # picks random word in list
+		wordtoblank_index = inputstory_list.index(wordtoblank) #indexes the random word
 		wordtoblank_pos = tagged[wordtoblank_index][1]#tag word based on part of speech
-		if wordtoblank_pos in blankable_poslist and wordtoblank != blank:
-			howmanyblanks = howmanyblanks + 1
-			blank_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here
-			inputstory_list[wordtoblank_index] = blank
-	return inputstory_list, blank_dict
+		if wordtoblank_pos in blankable_poslist and wordtoblank != blank: # if word can be blanked and hasn't been blanked yet...
+			howmanyblanks = howmanyblanks + 1 # number of blanked words goes up one
+			blank_dict[wordtoblank] = (wordtoblank_index,wordtoblank_pos) #look up the part of speech here and indexes the word and the part of speech
+			inputstory_list[wordtoblank_index] = blank # if the word is blanked out it is replaced with the blank placeholder
+	return inputstory_list, blank_dict # returns the original unedited story and a dictionary with the blanked words and their parts of speech
 
 
 def timing():
