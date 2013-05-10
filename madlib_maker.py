@@ -1,4 +1,4 @@
-\import random
+import random
 import nltk
 import urllib2
 from bs4 import BeautifulSoup
