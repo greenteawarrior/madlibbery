@@ -16,7 +16,7 @@ def blankage(inputstory_list):
 	"""takes in text to be used as madlib, randomly chooses words and replaces them with blanks"""
 	howtoblank= False 
 	while howtoblank == False:
-		totalblanks = raw_input("How many blanks would you like in your madlib?") #determines how many words the user will replace
+		totalblanks = raw_input("\nHow many blanks would you like in your madlib?") #determines how many words the user will replace
 		try:
 			totalblanks = int(totalblanks) # if the input is an integer, the answer will be accepted
 			howtoblank = True	
@@ -26,7 +26,6 @@ def blankage(inputstory_list):
 	blank = '_____'  #this is simply a placeholder
 	blank_dict = {}  #the dictionary all blanked out words will be added to
 	tagged = nltk.pos_tag(inputstory_list)  #takes the input story and part of speech tags every word in the input
-
 
 	blankable_poslist = ['NN', 'VB', 'VBP', 'JJ', 'RB'] #part of speech tags nltk uses
 	howmanyblanks = 0 #initially starts the number of blanks in the madlib at 0
@@ -52,7 +51,7 @@ def blankage(inputstory_list):
 
 def timing():
 	"""When the timer runs out, prints inspiration message"""
-	print("If you need some inspiration, press 'i' and hit enter for a word that we like. ") # creates a message to be displayed when a timer ends
+	print("If you need some inspiration, press 'i' and hit enter for a word that we like.\n") # creates a message to be displayed when a timer ends
 
 def playage(madlib):
 	"""Has the player fill in the blanks by taking list of words in story with blanks and a dictionary where the key is blanked words and the value is their part of speech, and their index. """
@@ -65,21 +64,18 @@ def playage(madlib):
 	adv_insp = ['Richly', 'Honorably', 'Ably', 'Magically', 'Abundantly', 'Nondescriptly', 'Hotly', 'Deafeningly', 'Viciously', 'Ferociously', 'Furiously', 'Hilariously', 'Basically', 'Parsimoniously', 'Royally', 'Readily', 'Strangely', 'Jokingly', 'Facetiously', 'Encouragingly', 'Enviously', 'Earsplittingly', 'Peacefully', 'Inquisitively', 'Tastefully', 'Incredibly', 'Beneficially', 'Defiantly', 'Tensely', 'Greatly', 'Firstly', 'Strongly', 'Gregariously', 'Prettily', 'Interestingly', 'Simply', 'Distinctly', 'Swiftly'] # a list of random adverbs that users can look at to be inspired if they can't think of a good word themselves
 	print("Reach deep down into your soul and tell me a...")
 
-
-
-
 	keyslist = blank_dict.keys()
 	x = 0
 	def inspiration():
 		"""Display a random word that matches the part of speech of the blanked word"""
-			if key_pos == 'Noun': # if the part of speech tag is a noun, display a random noun from the inspiration list
-				print(random.choice(noun_insp))
-			elif key_pos == 'Verb': # if the part of speech tag is a verb, display a random verb from the inspiration list
-				print(random.choice(verb_insp))
-			elif key_pos == 'Adjective': # if the part of speech tag is a adjective, display a random adjective from the inspiration list
-				print(random.choice(adj_insp))
-			elif key_pos == 'Adverb': # if the part of speech tag is a adverb, display a random adverb from the inspiration list
-				print(random.choice(adv_insp))
+		if key_pos == 'Noun': # if the part of speech tag is a noun, display a random noun from the inspiration list
+			print(random.choice(noun_insp))
+		elif key_pos == 'Verb': # if the part of speech tag is a verb, display a random verb from the inspiration list
+			print(random.choice(verb_insp))
+		elif key_pos == 'Adjective': # if the part of speech tag is a adjective, display a random adjective from the inspiration list
+			print(random.choice(adj_insp))
+		elif key_pos == 'Adverb': # if the part of speech tag is a adverb, display a random adverb from the inspiration list
+			print(random.choice(adv_insp))
 	for key in blank_dict:
 		key_pos=pos_dict[blank_dict[key][1]]
 		filled = False
@@ -112,17 +108,13 @@ def playage(madlib):
 
 def madlibbing():
 	"""Main function that calls blankage and playage. Creates welcome message, determines source of text for the madlib, and ultimately displays final product"""
-	print	
-	make_welcome = "Let's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point)."
-	print (make_welcome)
+	print("\nLet's get down to business (to defeat the ___). Compose something and we'll turn it into a madlib. Results may vary (that's the point).")	
 	letsmake = 0
 
 	while letsmake != 'y':
-		letsmake = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
+		letsmake = raw_input("\nIf you would like to proceed, press 'y' and then the enter key. ")
 
-	print
-	print("Would you like to use one of our Madlib stories, or create your own, or use a random wikipedia article?")
-	print
+	print("\nWould you like to use one of our Madlib stories, or create your own, or use a random wikipedia article?\n")
 	inputstory = False
 	while inputstory == False:
 		inputstorytype = raw_input("Type 'yours' to use a story we've written. Type 'mine' to write or paste a story yourself. Type 'wiki' to turn the text from a random wikipedia article into a madlib ")
@@ -143,7 +135,6 @@ def madlibbing():
 			inputstory = BeautifulSoup(wikipediatxt).get_text()
 			print
 			titlehtml = re.findall('<title>(.*)- Wikipedia', con)
-			print
 			print('The title of your madlib is: ' + str(titlehtml)[2:-2])
 
 	inputstory_list = inputstory.split() 
@@ -153,9 +144,9 @@ def madlibbing():
 	while madlib == False:
 		madlib = blankage(inputstory_list)
 
-	print("Your madlib is now ready (freshly out of the oven and smells ______, if I might add). Would you like to play? ")
-	print
+	print("\nYour madlib is now ready (freshly out of the oven and smells ______, if I might add). Would you like to play?\n")
 	letsplay = 0
+	print ('sup')
 	while letsplay != 'y':
 		letsplay = raw_input("If you would like to proceed, press 'y' and then the enter key. ")
 
@@ -163,8 +154,7 @@ def madlibbing():
 	while playing == False:
 		playing = playage(madlib)
 
-	print
-	print ("Hurray, madlib complete!")
+	print ("\nHurray, madlib complete!")
 
 	finishedmadlib = ''
 	for word in playing:
@@ -176,5 +166,7 @@ def madlibbing():
 
 	print
 	print (finishedmadlib)
+	return
 
-madlibbing()
+if __name__== "__main__":
+	madlibbing()
